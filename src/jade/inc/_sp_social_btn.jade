@@ -1,0 +1,11 @@
+.socialBtns
+  ul
+    li.facebook
+      .fb-like(data-href='#{meta.url}', data-send='false', data-layout='button_count', data-width='110', data-show-faces='false', data-share='true')
+    li.twitter
+      a(href="https://twitter.com/share", class="twitter-share-button", data-url=meta.url, data-text=sns.twitter.text, data-hashtags=sns.twitter.hashtags, data-lang="ja")
+  ul.socialBtns__lineBlock
+    li.line
+      - var lineUrl = encodeURIComponent(sns.line.text + ' ' + sns.line.link + ' ')
+      a(href="http://line.naver.jp/R/msg/text/?#{lineUrl}", data-track='index_sp	share	line')
+        img(src="#{img}/common/linebutton_88x20.png",width="88",height="20",alt="LINEで送る")

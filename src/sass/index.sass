@@ -1,0 +1,89 @@
+//対応するブラウザ
+$supported-browsers: ("android", "android-chrome", "android-firefox", "chrome", "ie-mobile", "ios-safari", "safari")
+
+//対応するブラウザのバージョン (効果あるんかな？)
+$browser-minimum-versions: ('android': "2.3", 'ios-safari': '6.0-6.1')
+
+
+@import "ceaser-easing"
+
+
+@import "compass/css3/animation"
+@import "compass/css3/background-clip"
+@import "compass/css3/border-radius"
+@import "compass/css3/box-sizing"
+@import "compass/css3/flexbox"
+@import "compass/css3/images"
+@import "compass/css3/font-face"
+@import "compass/css3/opacity"
+@import "compass/css3/transform"
+@import "compass/css3/transition"
+@import "compass/css3/user-interface"
+@import "compass/reset"
+@import "compass/utilities/general/clearfix"
+
+
+@import "import/color"
+@import "import/flex"
+@import "import/ttlib"
+@import "import/mixins"
+@import "import/animLib"
+@import "import/zindex"
+@import "import/btn"
+@import "import/font"
+@import "import/pc_reset"
+
+
+//h2
+//  color: #ff0000
+
+body
+  //background-color: #ff0000
+  //color: #ff0000
+
+
+
+
+//$test_sp-sprite-dimensions: true
+//$test_sp-spacing: 4px
+//@import "test_sp/*.png"
+//
+//.spriteTest2__title
+//  $img: 'unko_me'
+//  +test_sp-sprite($img)
+//
+//.spriteTest2Container
+//  $img: 'unko_me'
+//  +clearfix()
+//  > div
+//    float: left
+//  .spriteTest2__1
+//    +test_sp-sprite($img)
+//    width: 40px
+//  .spriteTest2__2
+//    +test_sp-sprite($img, 0, -40px)
+//    width: 50px
+//  .spriteTest2__3
+//    +test_sp-sprite($img, 0, -90px)
+//    width: 50px
+//  .spriteTest2__4
+//    +test_sp-sprite($img, 0, -140px)
+//    width: 50px
+//  .spriteTest2__5
+//    +test_sp-sprite($img, 0, -190px)
+//    width: 20px
+//  .spriteTest2__6
+//    +test_sp-sprite($img, 0, -210px)
+//    width: 60px
+//  .spriteTest2__7
+//    +test_sp-sprite($img, 0, -270px)
+//    width: 44px
+//
+//
+//.test3
+//  height: +test_sp-sprite-height('unko_me')
+//  overflow: hidden
+//.test6
+//
+//  overflow: visible
+//  +legacy-pie-clearfix()

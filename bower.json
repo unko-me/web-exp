@@ -1,0 +1,16 @@
+{
+  "name": "example_project",
+  "version": "0.0.0",
+  "dependencies": {
+    "dat.gui": "*",
+    "jquery": "~2.1.4",
+    "lodash": "~3.10.1",
+    "stats.js": "*",
+    "velocity": "~1.2.3",
+    "pixi.js": "pixi#~3.0.8",
+    "eventemitter2": "~0.4.14",
+    "gsap": "greensock#~1.18.0",
+    "moment": "2.10.6"
+  },
+  "devDependencies": {}
+}

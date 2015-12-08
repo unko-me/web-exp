@@ -1,0 +1,12 @@
+if debug == false
+  script.
+    (function(){
+      var tf = function() {};
+      window.console = {
+        log: tf,
+        info: tf,
+        warn: tf,
+        error: tf,
+        assert: tf
+      }
+    })();

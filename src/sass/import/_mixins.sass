@@ -1,0 +1,38 @@
+@import "compass/css3/user-interface"
+
+@mixin reset
+  body
+    font-family: Roboto, 'Droid Sans',"ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro W3", "メイリオ", "ＭＳ Ｐゴシック", sans-serif
+    //font-family: "ヒラギノ角ゴ Pro W3", "Hiragino Kaku Gothic Pro W3", "メイリオ", "ＭＳ Ｐゴシック", "MotoyaLCedar W3 mono", sans-serif
+  img
+    vertical-align: top
+
+@mixin smartphone-init
+  *
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0)
+    -webkit-touch-callout: none
+
+  *:not(input):not(textarea)
+    +user-select(none)
+
+@mixin overflow-scroll()
+  -webkit-overflow-scrolling: touch
+  //スクロールが重いのでgpu ON
+  -webkit-transform: translateZ(0px)
+
+
+
+@mixin abs($left: 0, $top: 0, $right: auto, $bottom: auto)
+  position: absolute
+  top: $top
+  left: $left
+  right: $right
+  bottom: $bottom
+
+
+// テキスト置換用
+@mixin textReplace
+  text-indent: -9999px
+  overflow: hidden
+  line-height: 0
+

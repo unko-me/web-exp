@@ -8,7 +8,8 @@ path = require "path"
 
 http_path = pkg.develop.http_path
 revision = gutil.env['build-version'] or gutil.date(Date.now(), 'yyyy-mm-dd_HH-MM-ss')
-uploadPath = path.normalize "#{http_path}/assets/#{revision}"
+#uploadPath = path.normalize "#{http_path}/assets/#{revision}"
+uploadPath = path.normalize "/#{http_path}/"
 notOpen = gutil.env.open is false
 
 _envCheck = (value)->
@@ -44,7 +45,7 @@ cdnBasePath = do ->
   return if env.local
     return '/'
   else
-    return URL.resolve CDN_URL[env.value],  "#{http_path}/assets/#{revision}/"
+    return URL.resolve CDN_URL[env.value],  "#{http_path}/"
 
 cdnAbsBasePath = CDN_ABS_URL[env.value]
 

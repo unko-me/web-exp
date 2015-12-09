@@ -10,7 +10,9 @@
     "pixi.js": "pixi#~3.0.8",
     "eventemitter2": "~0.4.14",
     "gsap": "greensock#~1.18.0",
-    "moment": "2.10.6"
+    "moment": "2.10.6",
+    "three.js": "~0.73.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+  }
 }

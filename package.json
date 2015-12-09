@@ -52,6 +52,7 @@
     "webpack-stream": "~2.1.1"
   },
   "scripts": {
+    "start": "gulp server --api develop --noclean true",
     "dev": "gulp server --api develop --noclean true",
     "clean_dev": "gulp server --api develop",
     "deploy": "gulp deploy --env production"

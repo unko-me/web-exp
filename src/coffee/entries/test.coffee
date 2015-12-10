@@ -1,4 +1,4 @@
-Test1 = require './../test_code/Test1'
+Test1 = require '../test_code/Test1'
 
 console.log 'test.coffeeです'
 

@@ -1,17 +1,34 @@
-Stage = require "./../common/Stage"
-ScrollManager = require "./../common/ScrollManager"
-Track = require "./../common/Track"
+#Stage = require "./../common/Stage"
+#ScrollManager = require "./../common/ScrollManager"
+#Track = require "./../common/Track"
+#
+#
+#class PC
+#  constructor: () ->
+#    Stage.on('resize', @resize)
+#    ScrollManager.on('scroll', @scroll)
+#
+#  resize: =>
+#  scroll: =>
+#
+##Track.init()
+#
+#$ ->
+#  new PC()
 
 
-class PC
+#$ = require "jquery"
+THREE = require "three.js"
+console.log 'test', THREE
+console.log "[pc] うえーい"
+
+
+
+
+class pc
   constructor: () ->
-    Stage.on('resize', @resize)
-    ScrollManager.on('scroll', @scroll)
+    @pos = new THREE.Vector2()
+    @pos.add(new THREE.Vector2(10, 10))
 
-  resize: =>
-  scroll: =>
 
-#Track.init()
-
-$ ->
-  new PC()
+module.exports = exports = pc

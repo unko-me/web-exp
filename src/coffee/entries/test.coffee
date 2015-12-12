@@ -1,8 +1,5 @@
-Test1 = require '../test_code/Test1'
-
 console.log 'test.coffeeです'
 
-new Test1()
 
 # アニメーション研究
 $ ->

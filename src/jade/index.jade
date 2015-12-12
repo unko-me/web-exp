@@ -1,12 +1,15 @@
 extends _pc_layout
-block css
-  link(rel='stylesheet', href='#{css}/index.css')
 
 block content
-  img(src="#{img}/test_sp/unko_me.png", width="$", height="$")
+  #testImg
+    img(src="#{img}/test_sp/unko_me.png", width="$", height="$")
 
-block libjs
-  script(src='#{js}/vendor.bundle.js')
+  #renderer
+
+//block libjs
+//  script(src='#{js}/vendor.bundle.js')
 
 block scripts
   script(src='#{js}/entries/pc.js')
+  script(src='#{js}/pages/BaseWorldTest.main.js')
+  //script(src='#{js}/PC.main.js')

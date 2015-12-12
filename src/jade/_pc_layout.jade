@@ -47,14 +47,14 @@ body(class=bodyClass)
   #fb-root
   #wrapper
     block header
-      header.header
-        .header__logo ヘッダーのロゴ
-
+      //-header.header
+        .header__logo
         .header__sns
           include inc/_pc_social_btn
     article#mainContent
+      //- ここに各コンテンツを入れる
       block content
-        | ここに各コンテンツを入れる
+         #renderer
     block footer
       footer.footer
         //include inc/_footer

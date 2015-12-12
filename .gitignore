@@ -10,6 +10,9 @@ node_modules
 vendor
 bower_components
 
+#typescript
+/src/typescript/tsd.d.ts
+/typings
 
 # build
 public/
@@ -30,4 +33,5 @@ workspace.xml
 
 # 動的に生成するConfig
 src/sass/_config.sass
+
 src/coffee/Config.coffee

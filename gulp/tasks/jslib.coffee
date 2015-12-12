@@ -18,6 +18,7 @@ baseLib = [
   "#{bower_dir}gsap/src/minified/TweenMax.min.js"
   "#{bower_dir}stats.js/build/stats.min.js"
   "#{bower_dir}dat.gui/dat.gui.min.js"
+  "#{config.src}/js/lib/modernizr.custom.webgl.js"
 ]
 
 files =

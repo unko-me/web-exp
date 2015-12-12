@@ -18,12 +18,12 @@
 
 
 #$ = require "jquery"
-THREE = require "three.js"
+#THREE = require "three.js"
 console.log 'test', THREE
 console.log "[pc] うえーい"
 
-
-
+#perlin = require '../lib/perlin.js'
+#console.log "[pc] perlin", perlin
 
 class pc
   constructor: () ->

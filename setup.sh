@@ -3,3 +3,4 @@
 npm install
 bower install
 bundle install --path vendor/bundle  --jobs=4
+tsd install

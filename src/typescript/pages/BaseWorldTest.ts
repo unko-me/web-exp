@@ -1,8 +1,10 @@
 import {BaseWorld} from "../core/BaseWorld";
 import Material = THREE.Material;
+import {PageDetailUtil} from "../core/PageDetailUtil";
 export class BaseWorldTest extends BaseWorld {
   constructor() {
     super(null);
+    PageDetailUtil.setPageData({title: "HTMLすら作らないタイプのページ"})
   }
 
 

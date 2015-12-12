@@ -8,6 +8,7 @@ import {BaseWorld} from "./core/BaseWorld";
 var perlin:any = require('../js/lib/perlin.js');
 console.log("perlin", perlin.noise.simplex2(10, 20));
 
+
 class PC {
   constructor() {
     console.log("-------------------ここからTypeScript");

@@ -2,10 +2,10 @@ export class HTTPUtil {
   constructor() {
 
   }
-  public static getUrlVars():Object {
-    const params:Array = location.search.substring(1).split('&');
-    let vars = {};
-    let i:number = 0;
+  public static getUrlVars():any {
+    const params:string[] = location.search.substring(1).split('&');
+    var vars = {};
+    var i:number = 0;
     const reg = new RegExp('=');
     while (i < params.length) {
       var keySearch = params[i].search(reg);
@@ -20,5 +20,11 @@ export class HTTPUtil {
     }
     return vars;
   }
-}
 
+  /**
+   * TODO: 未実装 どうにかしてローカル環境かどうかをチェックする。gulp server / buildで変更しようかね。
+   */
+  public static isLocal():boolean {
+    return false;
+  }
+}

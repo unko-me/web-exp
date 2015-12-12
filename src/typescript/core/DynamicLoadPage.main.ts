@@ -10,7 +10,7 @@ export class DynamicLoadPage
     }
 
     const script = document.createElement('script');
-    script.src = vars["js"];
+    script.src = `/js/${vars["js"]}`;
     document.head.appendChild(script);
   }
 }

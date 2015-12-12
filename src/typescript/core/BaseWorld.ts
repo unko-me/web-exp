@@ -16,7 +16,7 @@ export class BaseWorld {
   protected _directionalLight:DirectionalLight;
   protected control:TrackballControls;
 
-  constructor(protected option:any) {
+  constructor(protected option?:any) {
     this.scene = new Scene();
     this.setup();
   }

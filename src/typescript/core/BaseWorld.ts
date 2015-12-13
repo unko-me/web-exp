@@ -105,7 +105,7 @@ export class BaseWorld {
   }
 
   protected _setupAmbientLight():void {
-    if (this.option && this.option.amibientLight)
+    if (this.option && this.option.amibientLight && this.option.amibientLight.color)
       this.scene.add(new THREE.AmbientLight(this.option.amibientLight.color))
   }
 

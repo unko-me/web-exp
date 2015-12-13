@@ -1,6 +1,8 @@
 import {BaseWorld} from "../../core/BaseWorld";
 import Material = THREE.Material;
 import {PageDetailUtil} from "../../core/PageDetailUtil";
+import MeshPhongMaterial = THREE.MeshPhongMaterial;
+import Texture = THREE.Texture;
 
 export class SimpleShader extends BaseWorld {
   private uniformsPudding:any;
@@ -8,36 +10,29 @@ export class SimpleShader extends BaseWorld {
   private angle:number = 0;
   private swingVec:THREE.Vector3;
   private swingStrength:number = 0.0;
+  private texture:Texture;
 
 
   constructor() {
-    super();
+    super({
+      amibientLight: {
+        color: 0x666666
+      }
+    });
     PageDetailUtil.setPageData({title: "HTMLすら作らないタイプのページ"})
   }
   protected _setup():void {
     //this._setupGround();
+    this.texture = THREE.ImageUtils.loadTexture('/img/sozai/1000000-512.jpg', THREE.UVMapping);
 
-    var frag:string = <string>require('../../../shader/purupuru/1.frag');
-    var vert:string = <string>require('../../../shader/purupuru/1.vert');
+    var frag:string = <string>require('../../../shader/uneune/money.frag');
+    var vert:string = <string>require('../../../shader/uneune/money.vert');
     this.swingVec = new THREE.Vector3(0, 1, 0);
     var swingStrength = 0;
     this.uniformsPudding = {
-      frame:{
-        type: 'f',// float型
-        value: 0.0
-      },
-      modelHeight:{
-        type:"f", // float型
-        value: 5
-      },
-      swingVec: {
-        type:"v3", // Vector3型
-        value: this.swingVec
-      },
-      swingStrength: {
-        type:"f", // float型
-        //value: this.swingStrength
-        value: swingStrength
+      texture: {
+        type:"t",
+        value: this.texture
       }
     };
 
@@ -45,18 +40,24 @@ export class SimpleShader extends BaseWorld {
 
     var shaderMaterialPudding = new THREE.ShaderMaterial({
       uniforms: this.uniformsPudding,
-      // シェーダーを割り当てる
       vertexShader: vert,
-      //fragmentShader: THREE.ShaderLib.phong.fragmentShader
       fragmentShader: frag
+    });
+    shaderMaterialPudding.side = THREE.DoubleSide;
+    shaderMaterialPudding.transparent = false;
+    shaderMaterialPudding.blending = THREE.NormalBlending;
+
+
+    var mat = new MeshPhongMaterial({
+      map: this.texture
     });
 
 
-    const geometry = new THREE.BoxGeometry(200, 200, 200);
-    //const material:Material = new THREE.MeshPhongMaterial({color: 0xdd3b6f});
-    const cube = new THREE.Mesh(geometry, shaderMaterialPudding);
+    const geometry = new THREE.PlaneBufferGeometry(400, 200);
+    //const cube = new THREE.Mesh(geometry, shaderMaterialPudding);
+    const cube = new THREE.Mesh(geometry, mat);
     this.scene.add(cube);
-
+    mat.side = THREE.DoubleSide;
   }
 
   private _setupGround():void {
@@ -72,10 +73,10 @@ export class SimpleShader extends BaseWorld {
   }
   protected _update():void {
     this.angle += 0.01;
-    this.swingVec.x = Math.sin(this.angle) * 5.5 + 0.5;
-    this.swingVec.y = Math.sin(this.angle) * 0.5 + 0.5;
-    this.uniformsPudding.swingVec.value = this.swingVec;
-    this.uniformsPudding.swingStrength.value = Math.cos(this.angle) * 2 + 2;
+    //this.swingVec.x = Math.sin(this.angle) * 5.5 + 0.5;
+    //this.swingVec.y = Math.sin(this.angle) * 0.5 + 0.5;
+    //this.uniformsPudding.swingVec.value = this.swingVec;
+    //this.uniformsPudding.swingStrength.value = Math.cos(this.angle) * 2 + 2;
 
 
   }

@@ -33,17 +33,14 @@ export class SimpleShader extends BaseWorld {
   }
 
   private _createMoney():void {
-    this.params = {
-      angle: 0,
-      angleV: 0.15,
-      amp: 24.0,
-      freq: 6.0
-    };
+    this.params = Money.DEF_VALUE;
 
     this.gui = new GUI();
     this.gui.add(this.params, 'angleV', 0.01, 2.0);
     this.gui.add(this.params, 'amp', .1, 100);
     this.gui.add(this.params, 'freq', 0.1, 100);
+    this.gui.add(this.params, 'factor', -5, 5);
+    this.gui.add(this.params, 'factorDecay', -2, 2);
 
     this.money = new Money(this.texture, this.params);
     this.scene.add(this.money.mesh);

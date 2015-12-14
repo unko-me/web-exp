@@ -3,17 +3,22 @@ uniform sampler2D texture;
 uniform float angle;
 uniform float amp;
 uniform float freq;
-// three.js経由でもらった値
+uniform float factor;
+uniform float factorDecay;
 
 void main() {
     //PIは定義されていないようなので自分で定義する
     const float PI = 3.14159265359;
 
-    float ratio = (1.0 - position.x / 512.0) * PI * freq;
+    float perX = position.x / 512.0;
+    float ratio = (1.0 - perX) * PI * freq;
+//    float factorRatio = (perX * factor); //うねうねがおかしくなる
+//    float factorRatio = ((perX + 0.5 + factor) * PI * freq) * factorDecay;
+    float factorRatio = ((perX + 0.5 - factor) * PI * freq) * factorDecay;
 
 
     vec3 newPos = position;
-    newPos.z = cos(angle + ratio) * amp + position.x;
+    newPos.z = cos(angle + ratio) * amp * factorRatio + position.x;
 
 
     // 頂点位置の出力

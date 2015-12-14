@@ -35,3 +35,4 @@ workspace.xml
 src/sass/_config.sass
 
 src/coffee/Config.coffee
+src/typescript/Config.ts

@@ -60,7 +60,7 @@ export class SimpleShader extends BaseWorld {
 
   private _createMoneys(texture:THREE.Texture):void {
     this.moneys = [];
-    for(let i = 0; i < 10; i++) {
+    for(let i = 0; i < 100; i++) {
       let params = _.cloneDeep(Money.DEF_VALUE);
       params.freq += Math.random()* 2 - 1;
       params.angleV += (Math.random() - 0.5) * 0.1;

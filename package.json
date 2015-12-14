@@ -55,7 +55,7 @@
     "ts-loader": "^0.7.2",
     "typescript": "^1.7.3",
     "webpack": "^1.12.9",
-    "webpack-stream": "~2.1.1"
+    "webpack-stream": "^3.0.1"
   },
   "scripts": {
     "start": "gulp server --api develop --noclean true",

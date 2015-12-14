@@ -21,3 +21,6 @@ class PC {
 }
 
 new PC();
+console.log("[PC.main] ");
+
+console.log(require('../../data/consts.coffee'))

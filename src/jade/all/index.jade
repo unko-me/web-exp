@@ -3,11 +3,11 @@ extends ../_pc_layout
 block content
   -
     var list = [
-      {link: 'pages/?js=pages/BaseWorldTest.main.js', title: '動的読み込みのテスト。pages/?js=path-to-jsfile、でいける。'}
+      {link: 'pages/?js=pages/BaseWorldTest.main.js', title: '動的読み込みのテスト。pages/?js=path-to-jsfile、でいける。'},
       {link: 'pages/?js=pages/shader/SimpleShader.main.js', title: 'ShaderMaterialのテスト。'}
     ]
   ul
-    - each data in list
+    each data in list
       li: a(href='../#{data.link}')= data.title
 
 block scripts

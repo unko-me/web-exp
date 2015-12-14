@@ -7,8 +7,6 @@ import GUI = dat.GUI;
 import {Money} from "../../3dmodel/Money";
 
 export class SimpleShader extends BaseWorld {
-  private uniformsPudding:any;
-
   private params:any = {};
   private texture:Texture;
   private gui:GUI;
@@ -29,29 +27,32 @@ export class SimpleShader extends BaseWorld {
     loader.load('/img/sozai/1000000-512.jpg', (texture)=> {
       this.texture = texture;
       this._createMoneys(texture);
+      this._createMoney();
     });
 
   }
 
-  //private _createMoney():void {
-  //  this.params = Money.DEF_VALUE;
-  //
-  //  this.gui = new GUI();
-  //  this.gui.add(this.params, 'angleV', 0.01, 2.0);
-  //  this.gui.add(this.params, 'amp', .1, 100);
-  //  this.gui.add(this.params, 'freq', 0.1, 100);
-  //  this.gui.add(this.params, 'factor', -5, 5);
-  //  this.gui.add(this.params, 'factorDecay', -2, 2);
-  //
-  //  this.money = new Money(this.texture, this.params);
-  //  this.scene.add(this.money.mesh);
-  //};
+  private _createMoney():void {
+    this.params = Money.DEF_VALUE;
+
+    this.gui = new GUI();
+    this.gui.add(this.params, 'angleV', 0.01, 2.0);
+    this.gui.add(this.params, 'amp', .1, 100);
+    this.gui.add(this.params, 'freq', 0.1, 100);
+    this.gui.add(this.params, 'factor', -5, 50);
+    this.gui.add(this.params, 'factorDecay', -2, 2);
+
+    this.money = new Money(this.texture, this.params);
+    this.scene.add(this.money.mesh);
+  };
 
   protected _update():void {
     if (!this.moneys) return;
     for (let money of this.moneys) {
       money.update();
     }
+
+    if (this.money) this.money.update()
   }
   //protected _update():void {
   //  if (!this.money) return;
@@ -60,7 +61,7 @@ export class SimpleShader extends BaseWorld {
 
   private _createMoneys(texture:THREE.Texture):void {
     this.moneys = [];
-    for(let i = 0; i < 100; i++) {
+    for(let i = 0; i < 0; i++) {
       let params = _.cloneDeep(Money.DEF_VALUE);
       params.freq += Math.random()* 2 - 1;
       params.angleV += (Math.random() - 0.5) * 0.1;

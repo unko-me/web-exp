@@ -1,6 +1,7 @@
 /npm-debug.log
 /.bundle
 /build
+/.build
 /.sass-cache
 .DS_Store
 Gemfile.lock

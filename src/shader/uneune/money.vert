@@ -18,7 +18,8 @@ void main() {
 
 
     vec3 newPos = position;
-    newPos.z = cos(angle + ratio) * amp * factorRatio + position.x;
+    newPos.z = cos(angle + ratio * 0.1) * amp * factorRatio + position.x;
+//    newPos.z = cos(angle + ratio) * amp * factorRatio + position.x;
 
 
     // 頂点位置の出力

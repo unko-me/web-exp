@@ -2,6 +2,9 @@ import Texture = THREE.Texture;
 import GUI = dat.GUI;
 import Mesh = THREE.Mesh;
 import MeshPhongMaterial = THREE.MeshPhongMaterial;
+import {Engine} from "../animation/Engine";
+import Vector3 = THREE.Vector3;
+import ShaderMaterial = THREE.ShaderMaterial;
 export class Money {
   public static get DEF_VALUE():any {
     return this._DEF_VALUE;
@@ -10,7 +13,7 @@ export class Money {
     return this._mesh;
   }
   private gui:GUI;
-  private uniformsPudding:any;
+  private uniforms:any;
   private _mesh:Mesh;
   private static _DEF_VALUE:any = {
     angle: 0,
@@ -21,14 +24,34 @@ export class Money {
     factorDecay: 0.09,
   };
 
-  constructor(private texture:Texture, public params?:any) {
+  private engine:Engine;
+
+
+
+
+
+  constructor(private texture:Texture, public params?:any, location?:Vector3) {
     if (!params) {
       this.params = Money._DEF_VALUE;
     }
 
+    this.engine = new Engine(location);
+
+
+    this.createMesh();
+  }
+
+  private createMesh() {
+    let material = this.createShader();
+
+    const geometry = new THREE.PlaneBufferGeometry(400, 200, 100, 20);
+    this._mesh = new THREE.Mesh(geometry, material);
+  };
+
+  private createShader():ShaderMaterial {
     var vert:string = <string>require('../../shader/uneune/money.vert');
     var frag:string = <string>require('../../shader/uneune/money.frag');
-    this.uniformsPudding = {
+    this.uniforms = {
       angle: {type: "f", value: this.params.angle},
       amp: {type: "f", value: this.params.amp},
       freq: {type: "f", value: this.params.freq},
@@ -38,28 +61,26 @@ export class Money {
       texture: {type: "t", value: this.texture}
     };
 
-    var shaderMaterialPudding = new THREE.ShaderMaterial({
-      uniforms: this.uniformsPudding,
+    var material = new ShaderMaterial({
+      uniforms: this.uniforms,
       vertexShader: vert,
       fragmentShader: frag
     });
-    shaderMaterialPudding.side = THREE.DoubleSide;
-    shaderMaterialPudding.transparent = false;
-    shaderMaterialPudding.blending = THREE.NormalBlending;
-
-    const geometry = new THREE.PlaneBufferGeometry(400, 200, 100, 20);
-    this._mesh = new THREE.Mesh(geometry, shaderMaterialPudding);
-  }
+    material.side = THREE.DoubleSide;
+    material.transparent = false;
+    material.blending = THREE.NormalBlending;
+    return material;
+  };
 
   public update():void {
     if (!this.texture) return;
 
     this.params.angle += this.params.angleV;
-    this.uniformsPudding.angle.value = this.params.angle;
-    this.uniformsPudding.amp.value = this.params.amp;
-    this.uniformsPudding.freq.value = this.params.freq;
-    this.uniformsPudding.factor.value = this.params.factor;
-    this.uniformsPudding.factorDecay.value = this.params.factorDecay;
+    this.uniforms.angle.value = this.params.angle;
+    this.uniforms.amp.value = this.params.amp;
+    this.uniforms.freq.value = this.params.freq;
+    this.uniforms.factor.value = this.params.factor;
+    this.uniforms.factorDecay.value = this.params.factorDecay;
 
   }
 }

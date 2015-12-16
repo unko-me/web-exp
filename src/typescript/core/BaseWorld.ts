@@ -6,6 +6,7 @@ import WebGLRenderer = THREE.WebGLRenderer;
 import DirectionalLight = THREE.DirectionalLight;
 import PerspectiveCamera = THREE.PerspectiveCamera;
 import TrackballControls = THREE.TrackballControls;
+import {Stage} from "../katapad/Stage";
 
 require('../../js/lib/three/controls/TrackballControls.js');
 
@@ -17,6 +18,7 @@ export class BaseWorld {
   protected control:TrackballControls;
 
   constructor(protected option?:any) {
+    Stage.init();
     this.scene = new Scene();
     this.setup();
   }

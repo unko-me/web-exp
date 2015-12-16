@@ -81,6 +81,14 @@ export class Money {
     this.uniforms.freq.value = this.params.freq;
     this.uniforms.factor.value = this.params.factor;
     this.uniforms.factorDecay.value = this.params.factorDecay;
+  }
+
+  updateLocation(target:Vector3):void {
+    this.engine.seek(target);
+    this.engine.update();
+    if (this.mesh)
+      this.mesh.position.copy(this.engine.location);
+
 
   }
 }

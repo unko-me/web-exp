@@ -5,6 +5,8 @@ import MeshPhongMaterial = THREE.MeshPhongMaterial;
 import Texture = THREE.Texture;
 import GUI = dat.GUI;
 import {Money} from "../../3dmodel/Money";
+import {Stage} from "../../katapad/Stage";
+import Vector3 = THREE.Vector3;
 
 export class MoneyMoveMain extends BaseWorld {
   private params:any = {};
@@ -52,7 +54,14 @@ export class MoneyMoveMain extends BaseWorld {
       money.update();
     }
 
-    if (this.money) this.money.update()
+    if (this.money) {
+      this.money.updateLocation(new Vector3(Stage.clientX));
+      this.money.update();
+    }
+
+
+    //document.clientX
+
   }
   //protected _update():void {
   //  if (!this.money) return;

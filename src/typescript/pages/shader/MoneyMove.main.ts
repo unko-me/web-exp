@@ -55,18 +55,14 @@ export class MoneyMoveMain extends BaseWorld {
     }
 
     if (this.money) {
-      this.money.updateLocation(new Vector3(Stage.clientX));
+      this.money.updateLocation(new Vector3((Stage.clientX - Stage.width * 0.5) * 2.5, (-Stage.clientY  + Stage.height * 0.5) * 2.5));
       this.money.update();
     }
-
-
-    //document.clientX
-
   }
-  //protected _update():void {
-  //  if (!this.money) return;
-  //  this.money.update();
-  //}
+
+  protected _setupCameraPos():void {
+    this.camera.position.set(0, 0, 2000);
+  }
 
   private _createMoneys(texture:THREE.Texture):void {
     this.moneys = [];

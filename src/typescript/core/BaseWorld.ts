@@ -40,7 +40,7 @@ export class BaseWorld {
   }
 
   protected setupCamera():void {
-    this.camera = new PerspectiveCamera(75, 600 / 400, .1, 5000);
+    this.camera = new PerspectiveCamera(75, 600 / 400, .1, 10000);
     this._setupCameraPos();
     this._setupCameraLookAt();
 

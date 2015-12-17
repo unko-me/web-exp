@@ -29,7 +29,7 @@ export class MoneyMoveMain extends BaseWorld {
     loader.load('/img/sozai/1000000-512.jpg', (texture)=> {
       this.texture = texture;
       this._createMoneys(texture);
-      this._createMoney();
+      //this._createMoney();
     });
 
   }
@@ -49,13 +49,17 @@ export class MoneyMoveMain extends BaseWorld {
   };
 
   protected _update():void {
+    var target:Vector3 = new Vector3((Stage.clientX - Stage.width * 0.5) * 2.5, (-Stage.clientY + Stage.height * 0.5) * 2.5);
+
     if (!this.moneys) return;
     for (let money of this.moneys) {
+      money.updateLocation(target);
       money.update();
     }
 
+
     if (this.money) {
-      this.money.updateLocation(new Vector3((Stage.clientX - Stage.width * 0.5) * 2.5, (-Stage.clientY  + Stage.height * 0.5) * 2.5));
+      this.money.updateLocation(target);
       this.money.update();
     }
   }
@@ -66,7 +70,7 @@ export class MoneyMoveMain extends BaseWorld {
 
   private _createMoneys(texture:THREE.Texture):void {
     this.moneys = [];
-    for(let i = 0; i < 0; i++) {
+    for(let i = 0; i < 2; i++) {
       let params = _.cloneDeep(Money.DEF_VALUE);
       params.freq += Math.random()* 2 - 1;
       params.angleV += (Math.random() - 0.5) * 0.1;

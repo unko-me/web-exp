@@ -1,4 +1,4 @@
-import {HTTPUtil} from "../katapad/HTTPUtil";
+import {HTTPUtil} from "../katapad/util/HTTPUtil";
 export class DynamicLoadPage
 {
   constructor()

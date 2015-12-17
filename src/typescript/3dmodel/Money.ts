@@ -5,6 +5,7 @@ import MeshPhongMaterial = THREE.MeshPhongMaterial;
 import {Engine} from "../animation/Engine";
 import Vector3 = THREE.Vector3;
 import ShaderMaterial = THREE.ShaderMaterial;
+import {MathUtil} from "../katapad/util/MathUtil";
 export class Money {
   public static get DEF_VALUE():any {
     return this._DEF_VALUE;
@@ -35,7 +36,7 @@ export class Money {
       this.params = Money._DEF_VALUE;
     }
 
-    this.engine = new Engine(location);
+    this.engine = new Engine(location, 100, 5);
 
 
     this.createMesh();
@@ -86,8 +87,15 @@ export class Money {
   updateLocation(target:Vector3):void {
     this.engine.seek(target);
     this.engine.update();
-    if (this.mesh)
-      this.mesh.position.copy(this.engine.location);
+    if (!this.mesh)
+      return;
+
+    this.mesh.position.copy(this.engine.location);
+    var v = this.engine.velocity.clone();
+    v.normalize();
+    var rad = Math.atan2(v.y, v.x);
+    //this.mesh.rotation.z = MathUtil.rad2rot(rad);
+    this.mesh.rotation.z = rad;
 
 
   }

@@ -1,25 +1,28 @@
 import Vector3 = THREE.Vector3;
 export class Engine {
+  get velocity():THREE.Vector3 {
+    return this._velocity;
+  }
   public location:Vector3;
-  private velocity:Vector3;
+  private _velocity:Vector3;
   private acceleration:Vector3;
   public maxforce:number;
   public maxspeed:number;
 
-  constructor(location?:Vector3) {
+  constructor(location?:Vector3, maxspeed:number = 20, maxforce:number = 3) {
     this.location = new Vector3();
     if (location)
       this.location.copy(location);
-    this.velocity = new Vector3();
+    this._velocity = new Vector3();
     this.acceleration = new Vector3();
 
-    this.maxspeed = 20;
-    this.maxforce = 1;
+    this.maxspeed = maxspeed;
+    this.maxforce = maxforce;
   }
 
   public update():void {
-    this.velocity.add(this.acceleration);
-    this.location.add(this.velocity);
+    this._velocity.add(this.acceleration);
+    this.location.add(this._velocity);
     this.acceleration.multiplyScalar(0);
   }
 
@@ -31,7 +34,7 @@ export class Engine {
     var desired:Vector3 = target.subVectors(target, this.location);
     desired.normalize();
     desired.multiplyScalar(this.maxspeed);
-    var steer:Vector3 = desired.clone().sub(this.velocity);
+    var steer:Vector3 = desired.clone().sub(this._velocity);
     //steer.limit(this.maxforce);
     if (steer.length() > this.maxforce)
     {

@@ -31,6 +31,7 @@ export class Engine {
   }
 
   public seek(target:Vector3) {
+    target = target.clone();
     var desired:Vector3 = target.subVectors(target, this.location);
     desired.normalize();
     desired.multiplyScalar(this.maxspeed);

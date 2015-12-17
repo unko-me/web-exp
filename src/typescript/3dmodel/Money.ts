@@ -27,6 +27,8 @@ export class Money {
 
   private engine:Engine;
 
+  private rotate:Vector3;
+
 
 
 
@@ -36,8 +38,7 @@ export class Money {
       this.params = Money._DEF_VALUE;
     }
 
-    this.engine = new Engine(location, 100, 5);
-
+    this.engine = new Engine(location, MathUtil.random(80, 120), MathUtil.random(3,9));
 
     this.createMesh();
   }
@@ -95,7 +96,7 @@ export class Money {
     v.normalize();
     var rad = Math.atan2(v.y, v.x);
     //this.mesh.rotation.z = MathUtil.rad2rot(rad);
-    this.mesh.rotation.z = rad;
+    this.mesh.rotation.z += (rad - this.mesh.rotation.z) * 0.7;
 
 
   }

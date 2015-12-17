@@ -8,6 +8,9 @@ import {Money} from "../../3dmodel/Money";
 import {Stage} from "../../katapad/Stage";
 import Vector3 = THREE.Vector3;
 
+
+const NUM_MONEY = 1000;
+
 export class MoneyMoveMain extends BaseWorld {
   private params:any = {};
   private texture:Texture;
@@ -70,7 +73,7 @@ export class MoneyMoveMain extends BaseWorld {
 
   private _createMoneys(texture:THREE.Texture):void {
     this.moneys = [];
-    for(let i = 0; i < 2; i++) {
+    for(let i = 0; i < NUM_MONEY; i++) {
       let params = _.cloneDeep(Money.DEF_VALUE);
       params.freq += Math.random()* 2 - 1;
       params.angleV += (Math.random() - 0.5) * 0.1;

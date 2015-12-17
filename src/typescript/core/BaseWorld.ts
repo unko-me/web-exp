@@ -7,8 +7,17 @@ import DirectionalLight = THREE.DirectionalLight;
 import PerspectiveCamera = THREE.PerspectiveCamera;
 import TrackballControls = THREE.TrackballControls;
 import {Stage} from "../katapad/Stage";
-
+import EffectComposer = THREE.EffectComposer;
 require('../../js/lib/three/controls/TrackballControls.js');
+
+
+require('../../js/lib/three/shaders/DotScreenShader');
+require('../../js/lib/three/shaders/RGBShiftShader');
+require('../../js/lib/three/shaders/CopyShader');
+require('../../js/lib/three/postprocessing/MaskPass.js');
+require('../../js/lib/three/postprocessing/ShaderPass.js');
+require('../../js/lib/three/postprocessing/EffectComposer.js');
+require('../../js/lib/three/postprocessing/RenderPass.js');
 
 export class BaseWorld {
   public scene:Scene;
@@ -16,6 +25,7 @@ export class BaseWorld {
   public renderer:Renderer;
   protected _directionalLight:DirectionalLight;
   protected control:TrackballControls;
+  private composer:EffectComposer;
 
   constructor(protected option?:any) {
     Stage.init();
@@ -26,6 +36,7 @@ export class BaseWorld {
   protected setup():void {
     this.setupCamera();
     this.setupRenderer();
+    this.setupPostFX();
     this.setupLights();
     this.setupControl();
     this.initNotify();
@@ -71,6 +82,23 @@ export class BaseWorld {
 
     this._setupClearColor();
     document.getElementById('renderer').appendChild(this.renderer.domElement)
+
+  }
+
+  protected setupPostFX():void {
+    this.composer = new THREE.EffectComposer( (<WebGLRenderer>this.renderer) );
+    this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
+
+    var effect = new THREE.ShaderPass( (<any>THREE).DotScreenShader );
+    effect.uniforms[ 'scale' ].value = 4;
+    effect.renderToScreen = true;
+
+    this.composer.addPass( effect );
+
+    //var effect = new THREE.ShaderPass( (<any>THREE).RGBShiftShader );
+    //effect.uniforms[ 'amount' ].value = 0.0015;
+    //effect.renderToScreen = true;
+    //this.composer.addPass( effect );
 
   }
 
@@ -121,6 +149,10 @@ export class BaseWorld {
 
   public render():void {
     this.renderer.render(this.scene, this.camera);
+  }
+
+  public postFXRender():void {
+    this.composer.render();
   }
 
   public startLoop():void {

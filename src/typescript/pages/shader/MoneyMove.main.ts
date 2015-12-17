@@ -67,6 +67,11 @@ export class MoneyMoveMain extends BaseWorld {
     }
   }
 
+
+  public render():void {
+    this.postFXRender();
+  }
+
   protected _setupCameraPos():void {
     this.camera.position.set(0, 0, 2000);
   }

@@ -11,6 +11,9 @@ import Vector3 = THREE.Vector3;
 
 const NUM_MONEY = 1000;
 
+require('../../../js/lib/three/shaders/DotScreenShader');
+require('../../../js/lib/three/shaders/RGBShiftShader');
+
 export class MoneyMoveMain extends BaseWorld {
   private params:any = {};
   private texture:Texture;
@@ -21,6 +24,7 @@ export class MoneyMoveMain extends BaseWorld {
 
   constructor() {
     super({
+      usePostFx: true,
       amibientLight: {
         color: 0x666666
       }
@@ -68,10 +72,6 @@ export class MoneyMoveMain extends BaseWorld {
   }
 
 
-  public render():void {
-    this.postFXRender();
-  }
-
   protected _setupCameraPos():void {
     this.camera.position.set(0, 0, 2000);
   }
@@ -93,6 +93,21 @@ export class MoneyMoveMain extends BaseWorld {
       money.mesh.position.y = (Math.random() - 0.5) * 1000;
       money.mesh.position.z = (Math.random() - 0.5) * 1000;
     }
+  }
+
+
+  protected addPostFx():void {
+    var effect = new THREE.ShaderPass( (<any>THREE).DotScreenShader );
+    effect.uniforms[ 'scale' ].value = 4;
+    effect.renderToScreen = true;
+
+    this.composer.addPass( effect );
+    console.log("[MoneyMove.main] aa");
+
+    //var effect = new THREE.ShaderPass( (<any>THREE).RGBShiftShader );
+    //effect.uniforms[ 'amount' ].value = 0.0015;
+    //effect.renderToScreen = true;
+    //this.composer.addPass( effect );
   }
 }
 

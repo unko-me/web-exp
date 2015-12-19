@@ -11,8 +11,7 @@ import EffectComposer = THREE.EffectComposer;
 require('../../js/lib/three/controls/TrackballControls.js');
 
 
-require('../../js/lib/three/shaders/DotScreenShader');
-require('../../js/lib/three/shaders/RGBShiftShader');
+
 require('../../js/lib/three/shaders/CopyShader');
 require('../../js/lib/three/postprocessing/MaskPass.js');
 require('../../js/lib/three/postprocessing/ShaderPass.js');
@@ -25,7 +24,7 @@ export class BaseWorld {
   public renderer:Renderer;
   protected _directionalLight:DirectionalLight;
   protected control:TrackballControls;
-  private composer:EffectComposer;
+  protected composer:EffectComposer;
 
   constructor(protected option?:any) {
     Stage.init();
@@ -86,19 +85,16 @@ export class BaseWorld {
   }
 
   protected setupPostFX():void {
+    if (!this.option.usePostFx)
+      return;
+
     this.composer = new THREE.EffectComposer( (<WebGLRenderer>this.renderer) );
     this.composer.addPass( new THREE.RenderPass( this.scene, this.camera ) );
 
-    var effect = new THREE.ShaderPass( (<any>THREE).DotScreenShader );
-    effect.uniforms[ 'scale' ].value = 4;
-    effect.renderToScreen = true;
+    this.addPostFx();
+  }
 
-    this.composer.addPass( effect );
-
-    //var effect = new THREE.ShaderPass( (<any>THREE).RGBShiftShader );
-    //effect.uniforms[ 'amount' ].value = 0.0015;
-    //effect.renderToScreen = true;
-    //this.composer.addPass( effect );
+  protected addPostFx():void {
 
   }
 
@@ -148,7 +144,10 @@ export class BaseWorld {
   }
 
   public render():void {
-    this.renderer.render(this.scene, this.camera);
+    if (this.option.usePostFx)
+      this.postFXRender();
+    else
+      this.renderer.render(this.scene, this.camera);
   }
 
   public postFXRender():void {

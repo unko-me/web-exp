@@ -95,7 +95,6 @@ export class Money {
     var v = this.engine.velocity.clone();
     v.normalize();
     var rad = Math.atan2(v.y, v.x);
-    //this.mesh.rotation.z = MathUtil.rad2rot(rad);
     this.mesh.rotation.z += (rad - this.mesh.rotation.z) * 0.4;
   }
 }

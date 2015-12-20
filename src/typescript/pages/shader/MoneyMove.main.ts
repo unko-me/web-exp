@@ -9,7 +9,7 @@ import {Stage} from "../../katapad/Stage";
 import Vector3 = THREE.Vector3;
 
 
-const NUM_MONEY = 1000;
+const NUM_MONEY = 100;
 
 require('../../../js/lib/three/shaders/DotScreenShader');
 require('../../../js/lib/three/shaders/RGBShiftShader');
@@ -24,7 +24,7 @@ export class MoneyMoveMain extends BaseWorld {
 
   constructor() {
     super({
-      usePostFx: true,
+      //usePostFx: true,
       amibientLight: {
         color: 0x666666
       }
@@ -73,15 +73,15 @@ export class MoneyMoveMain extends BaseWorld {
 
 
   protected _setupCameraPos():void {
-    this.camera.position.set(0, 0, 2000);
+    this.camera.position.set(0, 0, 2500);
   }
 
   private _createMoneys(texture:THREE.Texture):void {
     this.moneys = [];
     for(let i = 0; i < NUM_MONEY; i++) {
       let params = _.cloneDeep(Money.DEF_VALUE);
-      params.freq += Math.random()* 2 - 1;
-      params.angleV += (Math.random() - 0.5) * 0.1;
+      params.freq += Math.random()* 2 - 1 + 9;
+      params.angleV += (Math.random() - 0.5) * 0.1 + 0.3;
       params.amp += (Math.random() - 0.5) * 4;
       params.factor += (Math.random() - 0.5) * 1;
 

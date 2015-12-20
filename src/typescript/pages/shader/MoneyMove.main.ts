@@ -7,6 +7,7 @@ import GUI = dat.GUI;
 import {Money} from "../../3dmodel/Money";
 import {Stage} from "../../katapad/Stage";
 import Vector3 = THREE.Vector3;
+import {DOFShader} from "../../shader/dof/DOFShader";
 
 
 const NUM_MONEY = 100;
@@ -24,7 +25,7 @@ export class MoneyMoveMain extends BaseWorld {
 
   constructor() {
     super({
-      //usePostFx: true,
+      usePostFx: true,
       amibientLight: {
         color: 0x666666
       }
@@ -97,15 +98,16 @@ export class MoneyMoveMain extends BaseWorld {
 
 
   protected addPostFx():void {
-    var effect = new THREE.ShaderPass( (<any>THREE).DotScreenShader );
-    effect.uniforms[ 'scale' ].value = 4;
+    //var effect = new THREE.ShaderPass( (<any>THREE).DotScreenShader );
+    //effect.uniforms[ 'scale' ].value = 4;
+    //effect.renderToScreen = true;
+    //this.composer.addPass( effect );
+    //
+    var effect = new THREE.ShaderPass( (<any>THREE).RGBShiftShader );
+    effect.uniforms[ 'amount' ].value = 0.0055;
     effect.renderToScreen = true;
-
     this.composer.addPass( effect );
-    console.log("[MoneyMove.main] aa");
-
-    //var effect = new THREE.ShaderPass( (<any>THREE).RGBShiftShader );
-    //effect.uniforms[ 'amount' ].value = 0.0015;
+    //var effect = new THREE.ShaderPass( new DOFShader() );
     //effect.renderToScreen = true;
     //this.composer.addPass( effect );
   }

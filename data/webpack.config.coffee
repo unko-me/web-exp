@@ -68,7 +68,8 @@ module.exports =
       {test: /\.jade$/, exclude: [/bower_components/, /node_modules/], loader: "jade-loader"}
       {test: /\.coffee$/, exclude: [/bower_components/, /node_modules/], loader: "coffee-loader"}
       {test: /\.ts$/, exclude: [/bower_components/, /node_modules/], loader: 'ts-loader'}
-      { test: /\.(glsl|vs|fs|vert|frag)$/, loader: 'shader' }
+      { test: /\.(glsl|vs|fs|vert|frag)$/, loader: 'webpack-glsl' }
+#      { test: /\.(glsl|vs|fs|vert|frag)$/, loader: 'shader' }
     ]
 #  glsl: {
 #    # chunks folder, chunkpath by default is ""

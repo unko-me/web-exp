@@ -10,6 +10,8 @@ import Vector3 = THREE.Vector3;
 import {DOFShader} from "../../shader/dof/DOFShader";
 import {MathUtil} from "../../katapad/util/MathUtil";
 import {ArriveEngine} from "../../animation/ArriveEngine";
+import MeshBasicMaterial = THREE.MeshBasicMaterial;
+import Mesh = THREE.Mesh;
 
 
 const NUM_MONEY = 10;
@@ -23,11 +25,12 @@ export class MoneyMoveMain extends BaseWorld {
   private gui:GUI;
   private money:Money;
   private moneys:Array<Money>;
+  private ground:Mesh;
 
 
   constructor() {
     super({
-      usePostFx: true,
+      usePostFx: false,
       amibientLight: {
         color: 0x666666
       }
@@ -35,12 +38,23 @@ export class MoneyMoveMain extends BaseWorld {
     PageDetailUtil.setPageData({title: "HTMLすら作らないタイプのページ"})
   }
   protected _setup():void {
+    this.createGround();
     var loader = new THREE.TextureLoader();
     loader.load('/img/sozai/1000000-512.jpg', (texture)=> {
       this.texture = texture;
       this._createMoneys(texture);
       //this._createMoney();
     });
+  }
+
+  private createGround():void {
+    const geo = new THREE.PlaneGeometry(100, 100, 32);
+    this.ground = new Mesh(geo, new MeshBasicMaterial({
+      wireframe: true,
+      side: THREE.DoubleSide,
+      color: 0xffff00,
+    }));
+    this.scene.add(this.ground);
   }
 
   private _createMoney():void {

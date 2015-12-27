@@ -8,6 +8,8 @@ import {Money} from "../../3dmodel/Money";
 import {Stage} from "../../katapad/Stage";
 import Vector3 = THREE.Vector3;
 import {DOFShader} from "../../shader/dof/DOFShader";
+import Mesh = THREE.Mesh;
+import MeshBasicMaterial = THREE.MeshBasicMaterial;
 
 
 const NUM_MONEY = 300;
@@ -21,6 +23,7 @@ export class MoneyMoveMain extends BaseWorld {
   private gui:GUI;
   private money:Money;
   private moneys:Array<Money>;
+  private ground:Mesh;
 
 
   constructor() {
@@ -33,6 +36,7 @@ export class MoneyMoveMain extends BaseWorld {
     PageDetailUtil.setPageData({title: "HTMLすら作らないタイプのページ"})
   }
   protected _setup():void {
+    this.createGround();
     var loader = new THREE.TextureLoader();
     loader.load('/img/sozai/1000000-512.jpg', (texture)=> {
       this.texture = texture;
@@ -119,12 +123,22 @@ export class MoneyMoveMain extends BaseWorld {
     //this.composer.addPass( effect );
     //
     var effect = new THREE.ShaderPass( (<any>THREE).RGBShiftShader );
-    effect.uniforms[ 'amount' ].value = 0.0055;
+    effect.uniforms[ 'amount' ].value = 0.0015;
     effect.renderToScreen = true;
     this.composer.addPass( effect );
     //var effect = new THREE.ShaderPass( new DOFShader() );
     //effect.renderToScreen = true;
     //this.composer.addPass( effect );
+  }
+
+  private createGround():void {
+    const geo = new THREE.PlaneGeometry(4000, 4000, 4);
+    this.ground = new Mesh(geo, new MeshBasicMaterial({
+      wireframe: true,
+      side: THREE.DoubleSide,
+      color: 0xffff00,
+    }));
+    this.scene.add(this.ground);
   }
 }
 

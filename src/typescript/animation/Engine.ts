@@ -1,6 +1,6 @@
 import Vector3 = THREE.Vector3;
 import {MathUtil} from "../katapad/util/MathUtil";
-export class Engine {
+export class Engine implements IEngine {
   get velocity():THREE.Vector3 {
     return this._velocity;
   }
@@ -31,7 +31,7 @@ export class Engine {
     this.acceleration.add(force);
   }
 
-  public seek(target:Vector3) {
+  public seek(target:Vector3):void {
     target = target.clone();
     var desired:Vector3 = target.subVectors(target, this.location);
     var diff = desired.length();

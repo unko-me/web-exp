@@ -25,7 +25,7 @@ export class Money {
     factorDecay: 0.09,
   };
 
-  private engine:Engine;
+  private engine:IEngine;
 
   private rotate:Vector3;
 
@@ -33,12 +33,15 @@ export class Money {
 
 
 
-  constructor(private texture:Texture, public params?:any, location?:Vector3) {
+  constructor(private texture:Texture, public params?:any, location?:Vector3, engine?:IEngine) {
     if (!params) {
       this.params = Money._DEF_VALUE;
     }
 
-    this.engine = new Engine(location, MathUtil.random(80, 120), MathUtil.random(3,9));
+    if (engine)
+      this.engine = engine;
+    else
+      this.engine = new Engine(location, MathUtil.random(80, 120), MathUtil.random(3,9));
 
     this.createMesh();
   }
@@ -92,7 +95,8 @@ export class Money {
       return;
 
     this.mesh.position.copy(this.engine.location);
-    var v = this.engine.velocity.clone();
+    //var v = this.engine.velocity.clone();
+    var v = this.engine.getVeclocity().clone();
     v.normalize();
     var rad = Math.atan2(v.y, v.x);
     this.mesh.rotation.z += (rad - this.mesh.rotation.z) * 0.4;

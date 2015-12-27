@@ -8,6 +8,8 @@ import {Money} from "../../3dmodel/Money";
 import {Stage} from "../../katapad/Stage";
 import Vector3 = THREE.Vector3;
 import {DOFShader} from "../../shader/dof/DOFShader";
+import {MathUtil} from "../../katapad/util/MathUtil";
+import {ArriveEngine} from "../../animation/ArriveEngine";
 
 
 const NUM_MONEY = 10;
@@ -37,9 +39,8 @@ export class MoneyMoveMain extends BaseWorld {
     loader.load('/img/sozai/1000000-512.jpg', (texture)=> {
       this.texture = texture;
       this._createMoneys(texture);
-      this._createMoney();
+      //this._createMoney();
     });
-
   }
 
   private _createMoney():void {
@@ -87,8 +88,8 @@ export class MoneyMoveMain extends BaseWorld {
       params.amp += (Math.random() - 0.5) * 4;
       params.factor += (Math.random() - 0.5) * 1;
 
-
-      var money = new Money(texture, params);
+      var engine = new ArriveEngine(null, MathUtil.random(80, 120), MathUtil.random(3,9));
+      var money = new Money(texture, params, null, engine);
       this.moneys.push(money);
       this.scene.add(money.mesh);
       money.mesh.position.x = (Math.random() - 0.5) * 1000;

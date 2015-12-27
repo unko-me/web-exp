@@ -1,14 +1,17 @@
 import Vector3 = THREE.Vector3;
 import {MathUtil} from "../katapad/util/MathUtil";
 export class Engine implements IEngine {
-  get velocity():THREE.Vector3 {
+  get velocity():Vector3 {
     return this._velocity;
   }
   public location:Vector3;
-  private _velocity:Vector3;
-  private acceleration:Vector3;
+  protected _velocity:Vector3;
+  protected acceleration:Vector3;
   public maxforce:number;
   public maxspeed:number;
+  public getVeclocity():Vector3 {
+    return this._velocity;
+  }
 
   constructor(location?:Vector3, maxspeed:number = 20, maxforce:number = 3) {
     this.location = new Vector3();
@@ -37,14 +40,7 @@ export class Engine implements IEngine {
     var diff = desired.length();
 
     desired.normalize();
-    //到着行動
-    if (diff < 500) {
-      var m = MathUtil.map(diff, 0, 500, 0, this.maxspeed);
-      desired.multiplyScalar(m);
-    }
-    else {
-      desired.multiplyScalar(this.maxspeed);
-    }
+    desired.multiplyScalar(this.maxspeed);
 
     var steer:Vector3 = desired.clone().sub(this._velocity);
     if (steer.length() > this.maxforce)

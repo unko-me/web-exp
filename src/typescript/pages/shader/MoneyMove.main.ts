@@ -10,7 +10,7 @@ import Vector3 = THREE.Vector3;
 import {DOFShader} from "../../shader/dof/DOFShader";
 
 
-const NUM_MONEY = 100;
+const NUM_MONEY = 300;
 
 require('../../../js/lib/three/shaders/DotScreenShader');
 require('../../../js/lib/three/shaders/RGBShiftShader');
@@ -57,13 +57,28 @@ export class MoneyMoveMain extends BaseWorld {
   };
 
   protected _update():void {
-    var target:Vector3 = new Vector3((Stage.clientX - Stage.width * 0.5) * 2.5, (-Stage.clientY + Stage.height * 0.5) * 2.5);
 
-    if (!this.moneys) return;
-    for (let money of this.moneys) {
-      money.updateLocation(target);
-      money.update();
+    const hasMouseList = Stage.mouseMoveList.length > 0;
+    const sHalfW = Stage.width * 0.5;
+    const sHalfH = Stage.width * 0.5;
+    var target:Vector3 = new Vector3((Stage.clientX - sHalfW) * 2.5, (-Stage.clientY + sHalfH) * 2.5);
+
+    if (this.moneys) {
+      var i = 0;
+      for (let money of this.moneys) {
+        if (hasMouseList) {
+          var mouse = Stage.mouseMoveList[i % Stage.mouseMoveList.length];
+          target = new Vector3((mouse.clientX - sHalfW) * 2.5, (-mouse.clientY + sHalfH) * 2.5);
+        }
+        else {
+
+        }
+        money.updateLocation(target);
+        money.update();
+        i++;
+      }
     }
+
 
 
     if (this.money) {

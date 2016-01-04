@@ -12,7 +12,7 @@
   "dependencies": {},
   "devDependencies": {
     "bower-webpack-plugin": "^0.1.9",
-    "browser-sync": "~2.9.11",
+    "browser-sync": "^2.11.0",
     "coffee-loader": "~0.7.2",
     "coffee-script": "~1.10.0",
     "del": "~2.0.2",

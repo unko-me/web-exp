@@ -3,14 +3,17 @@ export class DynamicLoadPage
 {
   constructor()
   {
-    var vars:Object = HTTPUtil.getUrlVars();
-    if (!vars['js']) {
-      alert("jsのソース指定がありませんです");
-      return;
-    }
+    //var vars:Object = HTTPUtil.getUrlVars();
+    //if (!vars['js']) {
+    //  alert("jsのソース指定がありませんです");
+    //  return;
+    //}
+
+    var src = document.location.hash.replace(/^#/, '');
+    console.log("[DynamicLoadPage.main] src", src);
 
     const script = document.createElement('script');
-    script.src = `/js/${vars["js"]}`;
+    script.src = `/js/${src}`;
     document.head.appendChild(script);
   }
 }

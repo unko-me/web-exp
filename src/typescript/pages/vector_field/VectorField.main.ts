@@ -13,7 +13,7 @@ import MeshBasicMaterial = THREE.MeshBasicMaterial;
 import {ArrowPlane} from "./ArrowPlane";
 import Object3D = THREE.Object3D;
 
-const NUM_MONEY = 10;
+const NUM_MONEY = 1;
 
 require('../../../js/lib/three/shaders/DotScreenShader');
 require('../../../js/lib/three/shaders/RGBShiftShader');
@@ -59,9 +59,12 @@ export class MoneyMoveMain extends BaseWorld {
 
     this.arrowList = [];
     var tex = THREE.ImageUtils.loadTexture('/img/sozai/arrow128.png');
+    //tex.flipY = true;
+
     this.arrowContainer = new THREE.Object3D();
     this.scene.add(this.arrowContainer);
 
+    var force = new Vector3(1, 1, 0);
     for (var y = 0; y < row; y++) {
       for (var x = 0; x < col; x++) {
         var plane = new ArrowPlane(tex);
@@ -69,7 +72,8 @@ export class MoneyMoveMain extends BaseWorld {
         this.arrowContainer.add(plane);
         plane.position.x = x * marginW - centerX;
         plane.position.y = y * marginH - centerY;
-        plane.setRotate(2 * Math.PI / col * x + 2 * Math.PI / row * y);
+        //plane.setRotate(2 * Math.PI / col * x + 2 * Math.PI / row * y);
+        plane.setForce(force);
       }
     }
   }

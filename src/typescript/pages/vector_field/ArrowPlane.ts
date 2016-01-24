@@ -12,6 +12,7 @@
 import MeshLambertMaterial = THREE.MeshLambertMaterial;
 import Mesh = THREE.Mesh;
 import PlaneGeometry = THREE.PlaneGeometry;
+
 export class ArrowPlane extends Mesh {
   constructor(tex) {
     var geo = new PlaneGeometry(256, 256);
@@ -26,6 +27,11 @@ export class ArrowPlane extends Mesh {
   public setRotate(redian:number):void {
     this.rotateZ(redian);
 
+  }
+
+  setForce(force:THREE.Vector3):void {
+    var radian = Math.atan2(force.y, force.x);
+    this.rotateZ(radian);
   }
 }
 

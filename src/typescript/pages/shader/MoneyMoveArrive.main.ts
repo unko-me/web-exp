@@ -14,7 +14,7 @@ import MeshBasicMaterial = THREE.MeshBasicMaterial;
 import Mesh = THREE.Mesh;
 
 
-const NUM_MONEY = 10;
+const NUM_MONEY = 1;
 
 require('../../../js/lib/three/shaders/DotScreenShader');
 require('../../../js/lib/three/shaders/RGBShiftShader');
@@ -48,7 +48,7 @@ export class MoneyMoveMain extends BaseWorld {
   }
 
   private createGround():void {
-    const geo = new THREE.PlaneGeometry(100, 100, 32);
+    const geo = new THREE.PlaneGeometry(4000, 4000, 4);
     this.ground = new Mesh(geo, new MeshBasicMaterial({
       wireframe: true,
       side: THREE.DoubleSide,
@@ -72,7 +72,21 @@ export class MoneyMoveMain extends BaseWorld {
   };
 
   protected _update():void {
-    var target:Vector3 = new Vector3((Stage.clientX - Stage.width * 0.5) * 2.5, (-Stage.clientY + Stage.height * 0.5) * 2.5);
+    //var target:Vector3 = new Vector3((Stage.clientX - Stage.width * 0.5) * 2.5, (-Stage.clientY + Stage.height * 0.5) * 2.5);
+    var target = new Vector3();
+    var mouseX =  (Stage.clientX/window.innerWidth)  * 2 - 1;
+    var mouseY = -(Stage.clientY/window.innerHeight) * 2 + 1;
+    var pos = new THREE.Vector3(mouseX, mouseY, 1);
+    pos.unproject(this.camera);
+    var ray = new THREE.Raycaster(this.camera.position, pos.sub(this.camera.position).normalize());
+    var objs = ray.intersectObjects(this.scene.children);
+
+    if (objs.length > 0) {
+      // 交差していたらobjsが1以上になるので、やりたいことをやる。
+      target.copy(objs[0].object.position);
+      console.log("[MoneyMoveArrive.main] target", target);
+    }
+
 
     if (this.money) {
       this.money.updateLocation(target);

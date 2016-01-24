@@ -10,6 +10,8 @@ import Vector3 = THREE.Vector3;
 import {DOFShader} from "../../shader/dof/DOFShader";
 import Mesh = THREE.Mesh;
 import MeshBasicMaterial = THREE.MeshBasicMaterial;
+import {ArrowPlane} from "./ArrowPlane";
+import Object3D = THREE.Object3D;
 
 const NUM_MONEY = 10;
 
@@ -23,11 +25,12 @@ export class MoneyMoveMain extends BaseWorld {
   private money:Money;
   private moneys:Array<Money>;
   private ground:Mesh;
+  private arrowContainer:Object3D;
 
+  private arrowList:Array<ArrowPlane>;
 
   constructor() {
     super({
-      usePostFx: true,
       amibientLight: {
         color: 0x666666
       }
@@ -36,6 +39,7 @@ export class MoneyMoveMain extends BaseWorld {
   }
   protected _setup():void {
     //this.createGround();
+    this.initField();
     var loader = new THREE.TextureLoader();
     loader.load('/img/sozai/1000000-512.jpg', (texture)=> {
       this.texture = texture;
@@ -43,6 +47,31 @@ export class MoneyMoveMain extends BaseWorld {
       //this._createMoney();
     });
 
+  }
+
+  private initField():void {
+    var row = 12;
+    var col = 16;
+    var marginW = 256;
+    var marginH = 256;
+    var centerX = marginW * col / 2;
+    var centerY = marginH * row / 2;
+
+    this.arrowList = [];
+    var tex = THREE.ImageUtils.loadTexture('/img/sozai/arrow128.png');
+    this.arrowContainer = new THREE.Object3D();
+    this.scene.add(this.arrowContainer);
+
+    for (var y = 0; y < row; y++) {
+      for (var x = 0; x < col; x++) {
+        var plane = new ArrowPlane(tex);
+        this.arrowList.push(plane);
+        this.arrowContainer.add(plane);
+        plane.position.x = x * marginW - centerX;
+        plane.position.y = y * marginH - centerY;
+        plane.setRotate(2 * Math.PI / col * x + 2 * Math.PI / row * y);
+      }
+    }
   }
 
   private _createMoney():void {
@@ -115,20 +144,6 @@ export class MoneyMoveMain extends BaseWorld {
   }
 
 
-  protected addPostFx():void {
-    //var effect = new THREE.ShaderPass( (<any>THREE).DotScreenShader );
-    //effect.uniforms[ 'scale' ].value = 4;
-    //effect.renderToScreen = true;
-    //this.composer.addPass( effect );
-    //
-    var effect = new THREE.ShaderPass( (<any>THREE).RGBShiftShader );
-    effect.uniforms[ 'amount' ].value = 0.0015;
-    effect.renderToScreen = true;
-    this.composer.addPass( effect );
-    //var effect = new THREE.ShaderPass( new DOFShader() );
-    //effect.renderToScreen = true;
-    //this.composer.addPass( effect );
-  }
 
   private createGround():void {
     const geo = new THREE.PlaneGeometry(4000, 4000, 4);

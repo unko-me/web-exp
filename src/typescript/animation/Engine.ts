@@ -25,6 +25,7 @@ export class Engine implements IEngine {
   }
 
   public update():void {
+    console.log("[Engine] this.acceleration", this.acceleration);
     this._velocity.add(this.acceleration);
     this.location.add(this._velocity);
     this.acceleration.multiplyScalar(0);

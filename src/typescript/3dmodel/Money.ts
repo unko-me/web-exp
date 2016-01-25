@@ -78,7 +78,7 @@ export class Money {
   };
 
   public applyForce(force:Vector3):void {
-
+    this.engine.applyForce(force);
   }
   public update():void {
     if (!this.texture) return;
@@ -89,10 +89,17 @@ export class Money {
     this.uniforms.freq.value = this.params.freq;
     this.uniforms.factor.value = this.params.factor;
     this.uniforms.factorDecay.value = this.params.factorDecay;
+
+    console.log("[Money] update");
+    this._updateLocation();
   }
 
   updateLocation(target:Vector3):void {
     this.engine.seek(target);
+    this._updateLocation();
+  }
+
+  protected _updateLocation():void {
     this.engine.update();
     if (!this.mesh)
       return;

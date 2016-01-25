@@ -19,5 +19,9 @@ export class MathUtil {
     var result = (targetMax - targetMin) * ratio + targetMin;
     return result;
   }
+
+  public static clamp(value:number, min:number, max:number):number {
+    return Math.max(Math.min(value, min), max);
+  }
 }
 

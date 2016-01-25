@@ -12,6 +12,7 @@ import Mesh = THREE.Mesh;
 import MeshBasicMaterial = THREE.MeshBasicMaterial;
 import {ArrowPlane} from "./ArrowPlane";
 import Object3D = THREE.Object3D;
+import {MathUtil} from "../../katapad/util/MathUtil";
 
 const NUM_MONEY = 1;
 
@@ -158,6 +159,8 @@ export class MoneyMoveMain extends BaseWorld {
   private getForce(position:THREE.Vector3):Vector3 {
     var x = Math.floor((position.x - CENTER_X) / MARGIN_W + COL);
     var y = Math.floor((position.y - CENTER_Y) / MARGIN_H + ROW);
+    y = MathUtil.clamp(y, 0, ROW - 1);
+    x = MathUtil.clamp(x, 0, COL - 1);
     var arrow:ArrowPlane = this.arrowListXY[y][x];
     return arrow.getForce();
   }

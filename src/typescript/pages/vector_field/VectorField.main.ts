@@ -81,6 +81,10 @@ export class MoneyMoveMain extends BaseWorld {
         this.arrowContainer.add(plane);
         plane.position.x = x * MARGIN_W - CENTER_X;
         plane.position.y = y * MARGIN_H - CENTER_Y;
+        force.x = 2 * Math.PI / COL * x;
+        force.x = Math.sin(x * 0.7) * 1.9 + Math.random();
+        force.y = Math.cos(y * 0.7) * 1.9 + Math.random();
+        //force.y = 2 * Math.PI / ROW * y;
         //plane.setRotate(2 * Math.PI / col * x + 2 * Math.PI / row * y);
         plane.setForce(force);
 

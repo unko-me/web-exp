@@ -90,7 +90,6 @@ export class Money {
     this.uniforms.factor.value = this.params.factor;
     this.uniforms.factorDecay.value = this.params.factorDecay;
 
-    console.log("[Money] update");
     this._updateLocation();
   }
 
@@ -108,7 +107,7 @@ export class Money {
     //var v = this.engine.velocity.clone();
     var v = this.engine.getVeclocity().clone();
     v.normalize();
-    var rad = Math.atan2(v.y, v.x);
+    var rad = Math.atan2(v.y, v.x) * -1;
     this.mesh.rotation.z += (rad - this.mesh.rotation.z) * 0.4;
   }
 }

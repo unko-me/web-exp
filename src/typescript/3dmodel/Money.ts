@@ -77,6 +77,9 @@ export class Money {
     return material;
   };
 
+  public applyForce(force:Vector3):void {
+
+  }
   public update():void {
     if (!this.texture) return;
 

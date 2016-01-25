@@ -15,19 +15,30 @@ import Object3D = THREE.Object3D;
 
 const NUM_MONEY = 1;
 
+
 require('../../../js/lib/three/shaders/DotScreenShader');
 require('../../../js/lib/three/shaders/RGBShiftShader');
+
+
+
+var ROW:number = 12;
+var COL:number = 16;
+var MARGIN_W:number = 256;
+var MARGIN_H:number = 256;
+var CENTER_X:number = MARGIN_W * COL / 2;
+var CENTER_Y:number = MARGIN_H * ROW / 2;
 
 export class MoneyMoveMain extends BaseWorld {
   private params:any = {};
   private texture:Texture;
   private gui:GUI;
-  private money:Money;
   private moneys:Array<Money>;
   private ground:Mesh;
   private arrowContainer:Object3D;
 
   private arrowList:Array<ArrowPlane>;
+  private arrowListXY:Array<Array<ArrowPlane>>;
+
 
   constructor() {
     super({
@@ -44,20 +55,14 @@ export class MoneyMoveMain extends BaseWorld {
     loader.load('/img/sozai/1000000-512.jpg', (texture)=> {
       this.texture = texture;
       this._createMoneys(texture);
-      //this._createMoney();
     });
 
   }
 
   private initField():void {
-    var row = 12;
-    var col = 16;
-    var marginW = 256;
-    var marginH = 256;
-    var centerX = marginW * col / 2;
-    var centerY = marginH * row / 2;
 
     this.arrowList = [];
+    this.arrowListXY = [];
     var tex = THREE.ImageUtils.loadTexture('/img/sozai/arrow128.png');
     //tex.flipY = true;
 
@@ -65,32 +70,23 @@ export class MoneyMoveMain extends BaseWorld {
     this.scene.add(this.arrowContainer);
 
     var force = new Vector3(1, 1, 0);
-    for (var y = 0; y < row; y++) {
-      for (var x = 0; x < col; x++) {
+    for (var y = 0; y < ROW; y++) {
+      var row:Array<ArrowPlane> = [];
+      this.arrowListXY[y] = row;
+      for (var x = 0; x < COL; x++) {
         var plane = new ArrowPlane(tex);
         this.arrowList.push(plane);
+        row.push(plane);
         this.arrowContainer.add(plane);
-        plane.position.x = x * marginW - centerX;
-        plane.position.y = y * marginH - centerY;
+        plane.position.x = x * MARGIN_W - CENTER_X;
+        plane.position.y = y * MARGIN_H - CENTER_Y;
         //plane.setRotate(2 * Math.PI / col * x + 2 * Math.PI / row * y);
         plane.setForce(force);
+
       }
     }
   }
 
-  private _createMoney():void {
-    this.params = Money.DEF_VALUE;
-
-    this.gui = new GUI();
-    this.gui.add(this.params, 'angleV', 0.01, 2.0);
-    this.gui.add(this.params, 'amp', .1, 100);
-    this.gui.add(this.params, 'freq', 0.1, 100);
-    this.gui.add(this.params, 'factor', -5, 50);
-    this.gui.add(this.params, 'factorDecay', -2, 2);
-
-    this.money = new Money(this.texture, this.params);
-    this.scene.add(this.money.mesh);
-  };
 
   protected _update():void {
 
@@ -102,14 +98,18 @@ export class MoneyMoveMain extends BaseWorld {
     if (this.moneys) {
       var i = 0;
       for (let money of this.moneys) {
-        if (hasMouseList) {
-          var mouse = Stage.mouseMoveList[i % Stage.mouseMoveList.length];
-          target = new Vector3((mouse.clientX - sHalfW) * 2.5, (-mouse.clientY + sHalfH) * 2.5);
-        }
-        else {
+        //if (hasMouseList) {
+        //  var mouse = Stage.mouseMoveList[i % Stage.mouseMoveList.length];
+        //  target = new Vector3((mouse.clientX - sHalfW) * 2.5, (-mouse.clientY + sHalfH) * 2.5);
+        //}
+        //else {
+        //
+        //}
+        //money.updateLocation(target);
 
-        }
-        money.updateLocation(target);
+        //console.log("[VectorField.main] money.mesh.position.x", money.mesh.position.x);
+        if (this.arrowListXY.length > 0)
+          money.applyForce(this.getForce(money.mesh.position));
         money.update();
         i++;
       }
@@ -117,10 +117,6 @@ export class MoneyMoveMain extends BaseWorld {
 
 
 
-    if (this.money) {
-      this.money.updateLocation(target);
-      this.money.update();
-    }
   }
 
 
@@ -157,6 +153,13 @@ export class MoneyMoveMain extends BaseWorld {
       color: 0xffff00,
     }));
     this.scene.add(this.ground);
+  }
+
+  private getForce(position:THREE.Vector3):Vector3 {
+    var x = Math.floor((position.x - CENTER_X) / MARGIN_W + COL);
+    var y = Math.floor((position.y - CENTER_Y) / MARGIN_H + ROW);
+    var arrow:ArrowPlane = this.arrowListXY[y][x];
+    return arrow.getForce();
   }
 }
 

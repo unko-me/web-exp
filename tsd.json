@@ -3,7 +3,7 @@
   "repo": "borisyankov/DefinitelyTyped",
   "ref": "master",
   "path": "typings",
-  "bundle": "src/typescript/tsd.d.ts",
+  "bundle": "typings/tsd.d.ts",
   "installed": {
     "greensock/greensock.d.ts": {
       "commit": "923c5431d9447db9d5cf41adc5914e3c94c1ff10"

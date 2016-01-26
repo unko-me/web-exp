@@ -1,4 +1,4 @@
-/// <reference path="tsd.d.ts" />
+/// <reference path="../../typings/tsd.d.ts" />
 /// <reference path="typings/local.d.ts" />
 /// <reference path="common.ts" />
 

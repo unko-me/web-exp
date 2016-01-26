@@ -1,3 +1,5 @@
+import * as _ from 'lodash';
+
 const MAX_MOUSE = 200;
 
 export class Stage {
@@ -8,6 +10,7 @@ export class Stage {
   public static get isInit():boolean {
     return this._isInit;
   }
+
   private static _isInit:boolean = false;
 
 
@@ -16,6 +19,7 @@ export class Stage {
       return Stage.latestMouse.clientX;
     return 0;
   }
+
   public static get clientY():number {
     if (Stage.latestMouse)
       return Stage.latestMouse.clientY;

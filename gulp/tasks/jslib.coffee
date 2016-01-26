@@ -12,19 +12,19 @@ replace = require 'gulp-replace'
 
 
 baseLib = [
-  "#{bower_dir}jquery/dist/jquery.min.js"
-  "#{bower_dir}lodash/lodash.min.js"
-  "#{bower_dir}eventemitter2/lib/eventemitter2.js"
-  "#{bower_dir}gsap/src/minified/TweenMax.min.js"
-  "#{bower_dir}stats.js/build/stats.min.js"
-  "#{bower_dir}dat.gui/dat.gui.min.js"
+  "node_modules/jquery/dist/jquery.min.js"
+#  "node_modules/lodash/lodash.min.js"
+  "node_modules/eventemitter2/lib/eventemitter2.js"
+  "node_modules/gsap/src/minified/TweenMax.min.js"
+  "node_modules/stats.js/build/stats.min.js"
+  "node_modules/dat.gui/dat.gui.min.js"
   "#{config.src}/js/lib/modernizr.custom.webgl.js"
 ]
 
 files =
   'lib/lib.js': baseLib.concat([
     "#{bower_dir}/three.js/three.min.js"
-    "#{bower_dir}/pixi.js/bin/pixi.min.js"
+    "node_modules/pixi.js/bin/pixi.min.js"
   ])
   'lib/lib_sp.js': _.clone(baseLib)
 

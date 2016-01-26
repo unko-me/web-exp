@@ -1,4 +1,4 @@
-HandEvent = require "./HandEvent"
+HandEvent = require "./../event/HandEvent"
 console.log "[TouchBtn] ", HandEvent, HandEvent.TOUCH_START
 class TouchBtn
   constructor: () ->

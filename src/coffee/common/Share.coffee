@@ -1,4 +1,4 @@
-UA = require './UA'
+UA = require './../bascule/util/UA'
 
 class Share
   @init: ->

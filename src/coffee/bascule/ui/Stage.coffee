@@ -1,3 +1,5 @@
+_ = require 'lodash'
+
 class Stage extends EventEmitter2
   constructor: () ->
     super()

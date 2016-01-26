@@ -1,4 +1,4 @@
-Consts = require "../Consts"
+Consts = require "../../Consts"
 TRACK_ID = Consts.analytics.track_id
 TRACK_DOMAIN = Consts.analytics.track_domain
 GTM_ID = Consts.analytics.GTM_id

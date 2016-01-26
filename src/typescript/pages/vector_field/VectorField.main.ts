@@ -41,6 +41,7 @@ export class MoneyMoveMain extends BaseWorld {
   private arrowListXY:Array<Array<ArrowPlane>>;
 
 
+
   constructor() {
     super({
       amibientLight: {

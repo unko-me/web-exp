@@ -9,9 +9,9 @@ console.log 'notOpen:', config.notOpen
 
 gulp.task "open", ->
   options =
-    url: config.openURL
+    uri: config.openURL
     app: "Google Chrome Canary"
 
-  gulp.src("./gulpfile.coffee").pipe open("", options)
+  gulp.src(__filename).pipe open(options)
   return
 

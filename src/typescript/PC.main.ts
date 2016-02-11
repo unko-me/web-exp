@@ -1,5 +1,4 @@
-/// <reference path="../../typings/tsd.d.ts" />
-/// <reference path="typings/local.d.ts" />
+/// <reference path="../../typings/browser.d.ts" />
 /// <reference path="common.ts" />
 
 import {Test1} from "./Test1";

@@ -14,6 +14,14 @@ export class Stage {
   private static _isInit:boolean = false;
 
 
+  public static get centerX():number {
+    return Stage.width / 2;
+  }
+
+  public static get centerY():number {
+    return Stage.height / 2;
+  }
+
   public static get clientX():number {
     if (Stage.latestMouse)
       return Stage.latestMouse.clientX;

@@ -53,8 +53,6 @@ export class BaseWorld {
     this.camera = new PerspectiveCamera(75, 600 / 400, .1, 10000);
     this._setupCameraPos();
     this._setupCameraLookAt();
-
-    console.log("this.camera", this.camera);
   }
 
   protected _setupCameraPos():void {
